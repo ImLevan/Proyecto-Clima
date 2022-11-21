@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="../CSS/estilos.css">
+    <title>Weather app</title>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="inputTemp">
+            <form class="search_submit" id="search_submit">
+                <input type="text" class="search" id="search_input" placeholder="Busca tu localidad ...">
+                <button type="submit"></button>
+            </form>
+            <div class="weather_space" id="logo-weather">
+            </div>
+            <div class="inputTemp_number">
+                <div class="inputTemp_celcius" id="degreeNumber"></div>
+                <div class="inputTemp_symbol">°C</div>
+            </div>
+            <div class="inputTemp_description" id="description"></div>
+        </div>
+        <div class="fecha">
+            <div class="location_date" id="date"></div>
+        </div>
+        <div class="location" id="locations">
+            <div class="material-symbols-outlined">location_on</div>
+            <div class="location_city" id="timezone"></div>
+        </div>
+        
+    </div>
+
+    <div class="weather-prox" id="prox">
+        <div class="container-pronostico" id="container2">
+            <div class="inputsTemp">
+                <div class="titulo-dia">Mañana</div>
+                <div class="weather_space_c" id="logo-weather_c1">
+                </div>
+                <div class="temp">
+                    <div class="inputTemp_celcius_max" id="degreeNumber_c1_max"></div>
+                    <div class="inputTemp_symbol_max">°C</div>
+                    <div class="inputTemp_celcius_min" id="degreeNumber_c1_min"></div>
+                    <div class="inputTemp_symbol_min">°C</div>
+                </div>
+                <div class="inputTemp_description" id="description"></div>
+            </div>
+            <div class="inputsTemp">
+                <div class="titulo-dia" id="dia-pronostico1"></div>
+                <div class="weather_space_c" id="logo-weather_c2">
+                </div>
+                <div class="temp">
+                    <div class="inputTemp_celcius_max" id="degreeNumber_c2_max"></div>
+                    <div class="inputTemp_symbol_max">°C</div>
+                    <div class="inputTemp_celcius_min" id="degreeNumber_c2_min"></div>
+                    <div class="inputTemp_symbol_min">°C</div>
+                </div>
+                <div class="inputTemp_description" id="description"></div>
+            </div>
+            <div class="inputsTemp">
+                <div class="titulo-dia" id="dia-pronostico2"></div>
+                <div class="weather_space_c" id="logo-weather_c3">
+                </div>
+                <div class="temp">
+                    <div class="inputTemp_celcius_max" id="degreeNumber_c3_max"></div>
+                    <div class="inputTemp_symbol_max">°C</div>
+                    <div class="inputTemp_celcius_min" id="degreeNumber_c3_min"></div>
+                    <div class="inputTemp_symbol_min">°C</div>
+                </div>
+                <div class="inputTemp_description" id="description"></div>
+            </div>
+            <div class="inputsTemp">
+                <div class="titulo-dia" id="dia-pronostico3"></div>
+                <div class="weather_space_c" id="logo-weather_c4">
+                </div>
+                <div class="temp">
+                    <div class="inputTemp_celcius_max" id="degreeNumber_c4_max"></div>
+                    <div class="inputTemp_symbol_max">°C</div>
+                    <div class="inputTemp_celcius_min" id="degreeNumber_c4_min"></div>
+                    <div class="inputTemp_symbol_min">°C</div>
+                </div>
+                <div class="inputTemp_description" id="description"></div>
+            </div>
+            <div class="inputsTemp">
+                <div class="titulo-dia" id="dia-pronostico4"></div>
+                <div class="weather_space_c" id="logo-weather_c5">
+                </div>
+                <div class="temp">
+                    <div class="inputTemp_celcius_max" id="degreeNumber_c5_max"></div>
+                    <div class="inputTemp_symbol_max">°C</div>
+                    <div class="inputTemp_celcius_min" id="degreeNumber_c5_min"></div>
+                    <div class="inputTemp_symbol_min">°C</div>
+                </div>
+                <div class="inputTemp_description" id="description"></div>
+            </div>
+        </div>
+
+        <div class="containter-info">
+            <div class="contenedor-cajas" id="barras">
+                <div class="titulo-info">Datos hoy</div>
+                <div class="box-container" id="box-container1">
+                    <div class="titulo">Viento</div>
+                    <div class="inputDatos">
+                        <div class="input_number" id="numberwind"></div>
+                        <div class="input_agregado">mph</div>
+                    </div>
+                </div>
+                <div class="box-container" id="box-container2">
+                    <div class="titulo">Humedad</div>
+                    <div class="inputDatos">
+                        <div class="input_number" id="numberhumid"></div>
+                        <div class="input_agregado">%</div>
+                    </div>
+                </div>
+                <div class="box-container" id="box-container3">
+                    <div class="titulo">Visibilidad</div>
+                    <div class="inputDatos">
+                        <div class="input_number" id="numbermiles"></div>
+                        <div class="input_agregado">millas</div>
+                    </div>
+                </div>
+                <div class="box-container" id="box-container4">
+                    <div class="titulo">Porcentaje nubosidad</div>
+                    <div class="inputDatos">
+                        <div class="input_number" id="numbernub"></div>
+                        <div class="input_agregado">%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../JS/defaultLoad.js"></script>
+    <script src="../JS/callsAPI.js"></script>
+    <script src="../JS/displayChanges.js"></script>
+</body>
