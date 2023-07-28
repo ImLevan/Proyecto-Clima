@@ -2,10 +2,26 @@
 //para los dias proximos `http://api.weatherunlocked.com/api/forecast/${data.data[0].latitude},${data.data[0].longitude}?app_id=09a1f657&app_key=1c643a7f14caa57bdf14e0f81bc7e445`
 
 
-const getWeatherData = async (city)=>{
-    fetch(`http://api.positionstack.com/v1/forward?access_key=d3b77e9b58538640d9412932b9ab24f7&query=${city}`)
+/*const getWeatherData = async (city)=>{
+    fetch(`http://api.positionstack.com/v1/forward?access_key=31c9654c0d654ee8372a85a8749b5073&query=${city}`)
     .then(response => {return response.json()})
     .then(data => {
+        fetchAWeather(data, city);
+        fetchAForecastWeather(data, city);
+    })
+    .catch(error =>{
+        console.log(error);
+        alert("Inserte una localidad válida!");
+    });
+
+
+} */
+
+const getWeatherData = async (city)=>{
+    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${city}&key=56cf18067fb74c71b0309cb9404adb61`)
+    .then(response => {return response.json()})
+    .then(data => {
+        console.log(data)
         fetchAWeather(data, city);
         fetchAForecastWeather(data, city);
     })
@@ -18,7 +34,7 @@ const getWeatherData = async (city)=>{
 } 
 
 const fetchAWeather = (res, city) => {
-    fetch(`http://api.weatherunlocked.com/api/current/${res.data[0].latitude},${res.data[0].longitude}?app_id=09a1f657&app_key=1c643a7f14caa57bdf14e0f81bc7e445`)
+    fetch(`http://api.weatherunlocked.com/api/current/${res.results[0].geometry.lat},${res.results[0].geometry.lng}?app_id=09a1f657&app_key=1c643a7f14caa57bdf14e0f81bc7e445`)
     .then(response => {return response.json()})
     .then(data => {
     console.log(data)
@@ -30,7 +46,7 @@ const fetchAWeather = (res, city) => {
 }
 
 const fetchAForecastWeather = (res, city) => {
-    fetch(`http://api.weatherunlocked.com/api/forecast/${res.data[0].latitude},${res.data[0].longitude}?app_id=09a1f657&app_key=1c643a7f14caa57bdf14e0f81bc7e445`)
+    fetch(`http://api.weatherunlocked.com/api/forecast/${res.results[0].geometry.lat},${res.results[0].geometry.lng}?app_id=09a1f657&app_key=1c643a7f14caa57bdf14e0f81bc7e445`)
     .then(response => {return response.json()})
     .then(data => {
     console.log(data)
