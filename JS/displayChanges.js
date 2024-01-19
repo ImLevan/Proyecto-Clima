@@ -35,28 +35,29 @@ let weatherIconc5 = document.getElementById("logo-weather_c5");
 let diaPronostico1 = document.getElementById("dia-pronostico1");
 let diaPronostico2 = document.getElementById("dia-pronostico2");
 let diaPronostico3 = document.getElementById("dia-pronostico3");
-let diaPronostico4 = document.getElementById("dia-pronostico4");
 
 //Declarar funciones secundarias
 
 const displayCurrentData = (obj, city)=>{
     //Actualizar temperatura
-    temperatureDegrees.textContent = Math.floor(obj.temp_c);
+    const grados =(parseFloat(obj.main.temp) - 32) * 5/9;
+    temperatureDegrees.textContent = Math.floor(grados);
     //Actualizar ciudad y convertir primer caracter en mayuscula
     timeZone.textContent = city.charAt(0).toUpperCase() + city.slice(1);
     //Cambiar el logo del clima
-    const icon = obj.wx_icon;
-    weatherIcon.innerHTML = `<img src='../Icons/${icon}' id="logo-clima">`;
+    const icon = obj.weather[0].icon;
+    weatherIcon.innerHTML = `<img src='https://openweathermap.org/img/wn/${icon}@4x.png' id="logo-clima">`;
     //Descripcion del clima
-    temperatureDescription.textContent = obj.wx_desc;
+    temperatureDescription.textContent = obj.weather[0].description.charAt(0).toUpperCase() + obj.weather[0].description.slice(1);
     //Velocidad del viento
-    numberWind.textContent = obj.windspd_mph;
+    numberWind.textContent = obj.wind.speed;
     //Porcentaje de humedad
-    numberHumid.textContent = obj.humid_pct;
+    numberHumid.textContent = obj.main.humidity;
     //numero de visibilidad
-    numberMiles.textContent = obj.vis_mi;
+    const visib_k = parseInt(obj.visibility) / 1000;
+    numberMiles.textContent = "+" + visib_k;
     //Porcentaje de nubosidad
-    numberNub.textContent = obj.cloudtotal_pct;
+    numberNub.textContent = obj.clouds.all;
 }
 
 const displayForecastData = (obj)=>{
@@ -74,52 +75,61 @@ searchForm.addEventListener("submit", e => {
 })
 
 function actualizarTemp(obj){
-    tempMaxc1.textContent = obj.Days[1].temp_max_c;
-    tempMinc1.textContent = obj.Days[1].temp_min_c;
-    tempMaxc2.textContent = obj.Days[2].temp_max_c;
-    tempMinc2.textContent = obj.Days[2].temp_min_c;
-    tempMaxc3.textContent = obj.Days[3].temp_max_c;
-    tempMinc3.textContent = obj.Days[3].temp_min_c;
-    tempMaxc4.textContent = obj.Days[4].temp_max_c;
-    tempMinc4.textContent = obj.Days[4].temp_min_c;
-    tempMaxc5.textContent = obj.Days[5].temp_max_c;
-    tempMinc5.textContent = obj.Days[5].temp_min_c;
+    tempMaxc1.textContent = Math.floor(farenheintACelsius(obj.list[1].main.temp_max));
+    tempMinc1.textContent = Math.floor(farenheintACelsius(obj.list[1].main.temp_min));
+    tempMaxc2.textContent = Math.floor(farenheintACelsius(obj.list[2].main.temp_max));
+    tempMinc2.textContent = Math.floor(farenheintACelsius(obj.list[2].main.temp_min));
+    tempMaxc3.textContent = Math.floor(farenheintACelsius(obj.list[3].main.temp_max));
+    tempMinc3.textContent = Math.floor(farenheintACelsius(obj.list[3].main.temp_min));
+    tempMaxc4.textContent = Math.floor(farenheintACelsius(obj.list[4].main.temp_max));
+    tempMinc4.textContent = Math.floor(farenheintACelsius(obj.list[4].main.temp_min));
+}
+
+function farenheintACelsius(grados){
+    return (grados - 32) * 5/9;
 }
 
 function mostrarIcono(obj){
-    let icon = obj.Days[1].Timeframes[0].wx_icon;
-    weatherIconc1.innerHTML = `<img src='../Icons/${icon}' id="logo-clima-c">`;
-    icon = obj.Days[2].Timeframes[0].wx_icon;
-    weatherIconc2.innerHTML = `<img src='../Icons/${icon}' id="logo-clima-c">`;
-    icon = obj.Days[3].Timeframes[0].wx_icon;
-    weatherIconc3.innerHTML = `<img src='../Icons/${icon}' id="logo-clima-c">`;
-    icon = obj.Days[4].Timeframes[0].wx_icon;
-    weatherIconc4.innerHTML = `<img src='../Icons/${icon}' id="logo-clima-c">`;
-    icon = obj.Days[5].Timeframes[0].wx_icon;
-    weatherIconc5.innerHTML = `<img src='../Icons/${icon}' id="logo-clima-c">`;
+    let icon = obj.list[1].weather[0].icon;
+    weatherIconc1.innerHTML = `<img src='https://openweathermap.org/img/wn/${icon}@4x.png' id="logo-clima-c">`;
+    icon = obj.list[2].weather[0].icon;
+    weatherIconc2.innerHTML = `<img src='https://openweathermap.org/img/wn/${icon}@4x.png' id="logo-clima-c">`;
+    icon = obj.list[3].weather[0].icon;
+    weatherIconc3.innerHTML = `<img src='https://openweathermap.org/img/wn/${icon}@4x.png' id="logo-clima-c">`;
+    icon = obj.list[4].weather[0].icon;
+    weatherIconc4.innerHTML = `<img src='https://openweathermap.org/img/wn/${icon}@4x.png' id="logo-clima-c">`;
 }
 
 function mostrarDias(obj){
-    let fecha = convertDateFormat(obj.Days[2].date);
+    let fecha = getFecha(obj.list[17].dt_txt);
     let fechaFormato = new Date(fecha).toLocaleDateString('es-ES', { weekday:"long"});
     diaPronostico1.textContent = fechaFormato.charAt(0).toUpperCase() + fechaFormato.slice(1);
-    fecha = convertDateFormat(obj.Days[3].date);
+    fecha = getFecha(obj.list[25].dt_txt);
     fechaFormato = new Date(fecha).toLocaleDateString('es-ES', { weekday:"long"});
     diaPronostico2.textContent = fechaFormato.charAt(0).toUpperCase() + fechaFormato.slice(1);
-    fecha = convertDateFormat(obj.Days[4].date);
+    fecha = getFecha(obj.list[33].dt_txt);
     fechaFormato = new Date(fecha).toLocaleDateString('es-ES', { weekday:"long"});
     diaPronostico3.textContent = fechaFormato.charAt(0).toUpperCase() + fechaFormato.slice(1);
-    fecha = convertDateFormat(obj.Days[5].date);
-    fechaFormato = new Date(fecha).toLocaleDateString('es-ES', { weekday:"long"});
-    diaPronostico4.textContent = fechaFormato.charAt(0).toUpperCase() + fechaFormato.slice(1);
 
     //Dia de hoy
-    fecha = convertDateFormat(obj.Days[0].date);
+    fecha = getFecha(obj.list[0].dt_txt);
     fechaFormato = new Date(fecha).toLocaleDateString('es-Es', {weekday: 'long',year: 'numeric', month: 'long', day: 'numeric' });
     date.textContent = fechaFormato;
 }
 
-function convertDateFormat(string) {
-    var info = string.split('/');
-    return info[2] + '/' + info[1] + '/' + info[0];
+function getFecha(str) {
+    // Obtener la fecha del string
+    const date = new Date(str);
+  
+    // Obtener el año
+    const year = date.getFullYear();
+  
+    // Obtener el mes
+    const month = date.getMonth() + 1;
+  
+    // Obtener el día
+    const day = date.getDate();
+  
+    // Concatenar la fecha separada por "/"
+    return `${year}/${month}/${day}`;
 }
